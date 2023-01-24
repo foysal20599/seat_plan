@@ -43,4 +43,7 @@ class StudentController extends Controller
     public function login(){
         return view('login');
     }
+    public function seatPlan(){
+        return view('seat_plan');
+    }
 }
