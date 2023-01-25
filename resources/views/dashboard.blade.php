@@ -96,6 +96,10 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-6 mb-3 mt-3 justify-content-center">
+                                    <button type="submit" class="btn btn-primary">Generate Plan</button>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -115,12 +119,12 @@
                         </script> © Seat Plan management
                     </div>
                     <div class="col-md-6">
-                        </div>
                     </div>
                 </div>
             </div>
-        </footer>
-        <!-- end Footer -->
+    </div>
+    </footer>
+    <!-- end Footer -->
 
     </div>
 @endsection
