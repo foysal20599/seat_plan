@@ -1,5 +1,6 @@
  <!DOCTYPE html>
  <html lang="en">
+
  <head>
      <meta charset="utf-8" />
      <title>Seat Plan Project</title>
@@ -16,7 +17,7 @@
      <!-- App css -->
      <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
      <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-style" />
-
+     @stack('style')
      <style>
          img.img-fluid {
              height: 90px;
@@ -40,7 +41,7 @@
          @yield('content')
 
 
-     
+
 
 
      </div>
@@ -69,6 +70,7 @@
 
      <!-- Timepicker -->
      <script src="assets/js/pages/demo.timepicker.js"></script>
+     @stack('script')
      <!-- end demo js-->
  </body>
 

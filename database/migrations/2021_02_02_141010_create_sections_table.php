@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('seat_plan_teachers', function (Blueprint $table) {
+        Schema::create('sections', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('seat_plan_id');
-            $table->string('teacher_name');
-            $table->boolean('status')->default(1);
+            $table->string('name');
+            $table->foreignId('batch_id');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seat_plan_teachers');
+        Schema::dropIfExists('sections');
     }
 };

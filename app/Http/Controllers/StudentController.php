@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SeatPlanExport;
+use App\Models\Section;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
 {
-    public function teacher(Request $request){
-        
+    public function teacher(Request $request)
+    {
+
         $rules = [
             'name' => 'required', 'string', 'max:255',
             'email' => 'required', 'string', 'email', 'max:255', 'unique:users',
@@ -26,7 +30,7 @@ class StudentController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-        
+
         $data = new  User();
         $data->name = $request->name;
         $data->email = $request->email;
@@ -35,15 +39,26 @@ class StudentController extends Controller
         $data->desination = $request->desination;
         $data->password = Hash::make($request->password);
         $data->f_id = $request->f_id;
-        if($data->save()){
+        if ($data->save()) {
             return redirect()->back()->with('status', 'Registration Successfully!');
         }
     }
 
-    public function login(){
+    public function login()
+    {
         return view('login');
     }
-    public function seatPlan(){
+    public function seatPlan()
+    {
         return view('seat_plan');
+    }
+    public function seatPlanExport()
+    {
+        return Excel::download(new SeatPlanExport, 'seat_plan.xlsx');
+    }
+    public function getSection(Request $request)
+    {
+        $data = Section::where('batch_id', $request->batch_id)->get();
+        return response()->json($data);
     }
 }

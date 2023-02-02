@@ -66,17 +66,13 @@
 
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
-
                                 <div class="mb-3">
-                                    <label for="emailaddress" class="form-label">Email address</label>
-                                    <input class="form-control" type="email" id="email" type="email"
+                                    <label for="emailaddress" class="form-label">Email/Username</label>
+                                    <input class="form-control" type="text" id="email" type="email"
                                         name="email" :value="old('email')" required autofocus
-                                        placeholder="Enter your email">
+                                        placeholder="Enter your email/username">
                                 </div>
-
                                 <div class="mb-3">
-                                    <a href="pages-recoverpw.html" class="text-muted float-end"><small>Forgot your
-                                            password?</small></a>
                                     <label for="password" class="form-label">Password</label>
                                     <div class="input-group input-group-merge">
                                         <input type="password" id="password" class="form-control"
@@ -87,22 +83,32 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="mb-3 mb-3">
+                                <div class="col-6 mb-3 mb-3">
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" id="checkbox-signin" checked>
                                         <label class="form-check-label" for="checkbox-signin">Remember me</label>
                                     </div>
                                 </div>
-
-                                <div class="mb-3 mb-0 text-center">
-                                    <button class="btn btn-primary" type="submit"> Log In </button>
+                                <div class="row">
+                                    <div class="col-6 mb-3 mb-0 text-end">
+                                        <button class="btn btn-primary" type="submit"> Log In </button>
+                                    </div>
+                                    <div class="col-6">
+                                        @if (Route::has('password.request'))
+                                            <a class="underline text-md text-gray-900 hover:text-gray-900"
+                                                href="{{ route('password.request') }}">
+                                                {{ __('Forgot your password?') }}
+                                            </a>
+                                        @endif
+                                    </div>
                                 </div>
 
                             </form>
                         </div> <!-- end card-body -->
                     </div>
                     <!-- end card -->
+
+
 
                     <div class="row mt-3">
                         <div class="col-12 text-center">
@@ -126,6 +132,7 @@
     <!-- bundle -->
     <script src="assets/js/vendor.min.js"></script>
     <script src="assets/js/app.min.js"></script>
+
 
 </body>
 
