@@ -16,10 +16,7 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('roll_no');
-            $table->string('unique_id')->unique();
-            $table->string('batch');
-            $table->foreignId('dept_id')->nullable();
+            $table->integer('student_id');
             $table->timestamps();
         });
     }

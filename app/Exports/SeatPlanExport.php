@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\SeatPlan;
+use App\Models\Student;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
@@ -20,7 +21,7 @@ class SeatPlanExport extends DefaultValueBinder implements WithColumnFormatting,
 
     public function headings(): array
     {
-        return ['id', 'student_id', 'name', 'room_no', 'bept', 'section', 'batch', 'date_time'];
+        return ['id', 'name', 'student_id'];
     }
 
     public function map($student): array
@@ -29,11 +30,6 @@ class SeatPlanExport extends DefaultValueBinder implements WithColumnFormatting,
             $student->id,
             $student->student_id,
             $student->name,
-            $student->room_no,
-            $student->bept,
-            $student->section,
-            $student->batch,
-            $student->date_time,
         ];
     }
 
@@ -48,6 +44,6 @@ class SeatPlanExport extends DefaultValueBinder implements WithColumnFormatting,
 
     public function query()
     {
-        return SeatPlan::query();
+        return Student::query();
     }
 }

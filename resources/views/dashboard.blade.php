@@ -76,9 +76,15 @@
                                         <input id="" type="file" class="form-control" type="text"
                                             placeholder="">
                                     </div>
+                                </div>
+                                <div id="product-container">
 
+                                </div>
+
+                                <div class="row">
                                     <div>
-                                        <button type="button" class="btn btn-sm btn-info"><small>Add more</small> </button>
+                                        <button type="button" class="btn btn-sm btn-info" id="btn-add-product"><small>Add
+                                                more</small> </button>
                                     </div>
                                     <div class="col-6 mb-3">
                                         <label for=""> Room:</label>
@@ -152,7 +158,8 @@
             </div>
 
         </div>
-        <!-- content -->
+
+
 
         <!-- Footer Start -->
         <footer class="footer">
@@ -172,10 +179,54 @@
     <!-- end Footer -->
 
     </div>
+    <template id="template-product">
+        <div class="row product-item">
+            <div class="col-3 mb-3">
+                <label class="form-label">Select Batch <span class="text-danger">*</span></label>
+                <select name="" id="batch1" class="form-control">
+                    <option value="">Select One</option>
+                    @foreach (App\Models\Batch::all() as $item)
+                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-3 mb-3">
+                <label class="form-label">Select Section <span class="text-danger">*</span>
+                </label>
+                <select name="" id="section1" class="form-control">
+                    <option value="">Select One</option>
+                </select>
+            </div>
+            <div class="col-3 mb-3">
+                <label class="form-label">Select Course <span class="text-danger">*</span></label>
+                <select name="" id="" class="form-control">
+                    <option value="">Select One</option>
+                    @foreach (\App\Models\Course::all() as $item)
+                        <option value="{{ $item->id }}">{{ $item->course_code }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-3 mb-3">
+                <label class="form-label">Student Sheet</label>
+                <input id="" type="file" class="form-control" type="text" placeholder="">
+            </div>
+        </div>
+    </template>
 @endsection
 
 @push('script')
     <script>
+        $('#btn-add-product').click(function() {
+            var html = $('#template-product').html();
+            var item = $(html);
+            if ($('.product-item').length < 1) {
+                $('#product-container').append(item);
+            }
+
+        });
+
+
+
         var section_id = '{{ old('section_id') }}'
         $('#batch').on('change', function() {
             var batch_id = $(this).val();
@@ -187,13 +238,35 @@
                     batch_id: batch_id,
                 }
             }).done(function(data) {
-                console.log(data);
                 $.each(data, function(index, item) {
                     if (section_id == item.id) {
                         $('#section').append('<option selected value="' + item.id +
                             '" selected>' + item.name + '</option>');
                     } else {
                         $('#section').append('<option value="' + item.id + '">' + item
+                            .name + '</option>');
+                    }
+                });
+            });
+        });
+
+        var section_id1 = '{{ old('section_id') }}'
+        $('body').on('change', '#batch1', function() {
+            var batch_id = $(this).val();
+            $('#section1').html('<option value="">Select one</option>');
+            $.ajax({
+                method: "GET",
+                url: '{{ route('get.section') }}',
+                data: {
+                    batch_id: batch_id,
+                }
+            }).done(function(data) {
+                $.each(data, function(index, item) {
+                    if (section_id1 == item.id) {
+                        $('#section1').append('<option selected value="' + item.id +
+                            '" selected>' + item.name + '</option>');
+                    } else {
+                        $('#section1').append('<option value="' + item.id + '">' + item
                             .name + '</option>');
                     }
                 });
