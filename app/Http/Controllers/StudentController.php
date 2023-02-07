@@ -61,4 +61,7 @@ class StudentController extends Controller
         $data = Section::where('batch_id', $request->batch_id)->get();
         return response()->json($data);
     }
+    public function store(Request $request){
+        return $request;
+    }
 }

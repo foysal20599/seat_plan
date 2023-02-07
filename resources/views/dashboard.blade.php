@@ -45,11 +45,12 @@
                                         Export</a>
                                 </div>
                             </div>
-                            <form action="" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('seat.plan.store') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
                                 <div class="row">
                                     <div class="col-3 mb-3">
                                         <label class="form-label">Select Batch <span class="text-danger">*</span></label>
-                                        <select name="" id="batch" class="form-control">
+                                        <select name="batch[]" id="batch" class="form-control">
                                             <option value="">Select One</option>
                                             @foreach (App\Models\Batch::all() as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -58,13 +59,13 @@
                                     </div>
                                     <div class="col-3 mb-3">
                                         <label class="form-label">Select Section <span class="text-danger">*</span> </label>
-                                        <select name="" id="section" class="form-control">
+                                        <select name="section[]" id="section" class="form-control">
                                             <option value="">Select One</option>
                                         </select>
                                     </div>
                                     <div class="col-3 mb-3">
                                         <label class="form-label">Select Course <span class="text-danger">*</span></label>
-                                        <select name="" id="" class="form-control">
+                                        <select name="course[]" id="" class="form-control">
                                             <option value="">Select One</option>
                                             @foreach (\App\Models\Course::all() as $item)
                                                 <option value="{{ $item->id }}">{{ $item->course_code }}</option>
@@ -91,7 +92,7 @@
                                         <br>
                                         @foreach (\App\Models\Room::all() as $item)
                                             <div class="form-check form-check-inline mt-2">
-                                                <input type="radio" id="customRadio{{ $item->id }}" name="customRadio"
+                                                <input type="radio" id="customRadio{{ $item->id }}" name="room_id"
                                                     value="{{ $item->id }}" class="form-check-input">
                                                 <label class="form-check-label"
                                                     for="customRadio{{ $item->id }}">{{ $item->name }}</label>
@@ -107,14 +108,14 @@
                                             <label for=""> Date:</label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control date" id="birthdatepicker"
-                                                    data-toggle="date-picker" data-single-date-picker="true">
+                                                    data-toggle="date-picker" data-single-date-picker="true" name="date">
                                                 <span class="input-group-text"><i class="dripicons-clock"></i></span>
                                             </div>
                                         </div>
                                         <div class="col-4">
                                             <label for=""> Start Time:</label>
                                             <div class="input-group" id="timepicker-input-group1">
-                                                <input id="timepicker" type="text" class="form-control"
+                                                <input id="timepicker" type="text" class="form-control" name="start_time"
                                                     data-provide="timepicker">
                                                 <span class="input-group-text"><i class="dripicons-clock"></i></span>
                                             </div>
@@ -123,7 +124,7 @@
                                             <label for=""> End Time:</label>
                                             <div class="input-group" id="timepicker-input-group3">
                                                 <input id="timepicker3" type="text" class="form-control"
-                                                    data-provide='timepicker' data-minute-step="5">
+                                                    name="end_time" data-provide='timepicker' data-minute-step="5">
                                                 <span class="input-group-text"><i class="dripicons-clock"></i></span>
                                             </div>
                                         </div>
@@ -183,7 +184,7 @@
         <div class="row product-item">
             <div class="col-3 mb-3">
                 <label class="form-label">Select Batch <span class="text-danger">*</span></label>
-                <select name="" id="batch1" class="form-control">
+                <select name="batch[]" id="batch1" class="form-control">
                     <option value="">Select One</option>
                     @foreach (App\Models\Batch::all() as $item)
                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -193,13 +194,13 @@
             <div class="col-3 mb-3">
                 <label class="form-label">Select Section <span class="text-danger">*</span>
                 </label>
-                <select name="" id="section1" class="form-control">
+                <select name="section[]" id="section1" class="form-control">
                     <option value="">Select One</option>
                 </select>
             </div>
             <div class="col-3 mb-3">
                 <label class="form-label">Select Course <span class="text-danger">*</span></label>
-                <select name="" id="" class="form-control">
+                <select name="course" id="" class="form-control">
                     <option value="">Select One</option>
                     @foreach (\App\Models\Course::all() as $item)
                         <option value="{{ $item->id }}">{{ $item->course_code }}</option>
@@ -208,7 +209,8 @@
             </div>
             <div class="col-3 mb-3">
                 <label class="form-label">Student Sheet</label>
-                <input id="" type="file" class="form-control" type="text" placeholder="">
+                <input id="" name="student[]" type="file" class="form-control" type="text"
+                    placeholder="">
             </div>
         </div>
     </template>

@@ -16,6 +16,7 @@ Route::get('student', [StudentController::class, 'student']);
 Route::post('store-info', [StudentController::class, 'teacher'])->name('teacher.info');
 Route::get('seat-plan-view', [StudentController::class, 'seatPlan'])->name('seat.plan.view');
 Route::get('export-seat-plan', [StudentController::class, 'seatPlanExport'])->name('export.seatplan');
+Route::post('seat-plan-store', [StudentController::class, 'store'])->name('seat.plan.store');
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', function () {
